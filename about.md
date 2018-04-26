@@ -9,4 +9,4 @@ Hi! I am Ayush Suhane. I am a Graduate student in Materials Engineering, Univers
 
 ### Contact me
 
-[email@domain.com](mailto:ayush.suhane@gmail.com)
+[ayush.suhane@gmail.com](mailto:ayush.suhane@gmail.com)
