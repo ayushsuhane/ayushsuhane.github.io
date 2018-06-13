@@ -10,22 +10,27 @@ Since it was established that [Octree](https://github.com/PointCloudLibrary) and
 CellGrid package, KDTree and brute force methods are first compared for the use case to find all the pairs within a fixed distance (see [here](https://github.com/ayushsuhane/Benchmarks_Distance/blob/master/Notebooks/BM_PairContact_MOD.ipynb)). For brute force calculations, `distance_array` is used in place of `self_distance_array` due to its high memory consumption. To avoid the repetatitve calculations due to each pair, care is taken to evaluate distance only once for each pair. Similarly, individual queries is pruned in KDtree and a list with all the pairs is maintained. For the case of Cellgrid, a distance matrix containing the particles within its neighbourhood is constructed. This matrix is masked based on the distances. To study the scaling behaviour of all three methods, a cutoff distance of 10 distance units is fixed and execution time is registered for different particle densities in a fixed box.    
 
 ![alt text](/images/090518_paircon_rad10.PNG) 
+
 Time to evaluate particle within a distance of 10 distance units
 
 Since, cutoff radius is an important factor for performance,  similar studies were performed to characterize the effect of cutoff radius for different particle densities. Although the trend with cutoff distance is continuously increasing for complete range of particle density i.e. for number of particles ranging from 100 to 100k. However, a significant relative shift can be seen from low to high number of particles. While brute force takes notably less time as compared to other data structures, the transition to cellgrid becomes evident at higher particle density. 
 
 ![Variation of execution time for different cutoff distances for 100 particles](/images/090518_paircon_n100.PNG) 
+
 Variation of execution time for different cutoff distances for 100 particles 
 
 ![Variation of execution time for different cutoff distances for 17k particles](/images/090518_paircon_n17k.PNG) 
+
 Variation of execution time for different cutoff distances for 17k particles
 
 ![Variation of execution time for different cutoff distances for 100k particles](/images/090518_paircon_n100.PNG) 
+
 Variation of execution time for different cutoff distances for 100k particles 
 
 It can be seen that Cell-lists become advantageous as the number of particles increase. Since FATSLiM have a more efficient implementation of grid search, The next step is to check the timings of PBC aware Neighbour search module for pair contact searches. For this benchmark, we chose a particular implementation of bonds_guess, which is implemented in MDAnalysis at `MDAnalysis.topology.guessers`. The goal of this function is to identify the bonds between atoms by identifying the neighbouring atoms and checking the distance between them relative to the sum of their radius. Current implementation evaluates all the pair contacts for each particle using naive distance algorithm. It is anticipated that this algorithm is very costly and can be replaced with other data structures to improve the performance. It can be seen that while tree and grid structures both are advantageous at very large particle densities, Neighbour search (linear grid search) is more advantageous at intermediate particle densities as well. As expected a transition from brute force to KDTree/ Cell-List is achieved at lower particle densities i.e. around 1k for cell-list and around 6k for Periodic KDTree (see [here](http://localhost:8888/notebooks/GuessBonds.ipynb)).
 
 ![Benchmarks for Guessing bonds between atoms in a static dataset of atoms](/images/090518_bondsguess.PNG) 
+
 Benchmarks for Guessing bonds between atoms in a static dataset of atoms
 
 Apart from the increase in performance, another trick which only calculates distances from half the neighbours (as implemented in Cellgrid) is not implemented in Neighbour search routine. It is anticipated that performance of this method can be further increased by adopting this procedure. 
