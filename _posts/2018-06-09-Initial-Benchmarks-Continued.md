@@ -15,11 +15,11 @@ Since, cutoff radius is an important factor for performance,  similar studies we
 
 |N = 100  |    N = 17k             |  N = 100k |       
 :-------------------------:|:-------------------------:|:----------------------------|
-![alt text](/images/090518_paircon_n100.PNG) "Variation of execution time for different cutoff distances for 100 particles" | ![alt text](/images/090518_paircon_n17k.PNG) "Variation of execution time for different cutoff distances for 17k particles" | ![alt text](/images/090518_paircon_n100.PNG) "Variation of execution time for different cutoff distances for 100k particles"
+![Variation of execution time for different cutoff distances for 100 particles](/images/090518_paircon_n100.PNG) | ![Variation of execution time for different cutoff distances for 17k particles](/images/090518_paircon_n17k.PNG) | ![Variation of execution time for different cutoff distances for 100k particles](/images/090518_paircon_n100.PNG) 
 
 It can be seen that Cell-lists become advantageous as the number of particles increase. Since FATSLiM have a more efficient implementation of grid search, The next step is to check the timings of PBC aware Neighbour search module for pair contact searches. For this benchmark, we chose a particular implementation of bonds_guess, which is implemented in MDAnalysis at `MDAnalysis.topology.guessers`. The goal of this function is to identify the bonds between atoms by identifying the neighbouring atoms and checking the distance between them relative to the sum of their radius. Current implementation evaluates all the pair contacts for each particle using naive distance algorithm. It is anticipated that this algorithm is very costly and can be replaced with other data structures to improve the performance. It can be seen that while tree and grid structures both are advantageous at very large particle densities, Neighbour search (linear grid search) is more advantageous at intermediate particle densities as well. As expected a transition from brute force to KDTree/ Cell-List is achieved at lower particle densities i.e. around 1k for cell-list and around 6k for Periodic KDTree (see [here](http://localhost:8888/notebooks/GuessBonds.ipynb)).
 
-![alt text](/images/090518_bondsguess.PNG) "Benchmarks for Guessing bonds between atoms in a static dataset of atoms"
+![Benchmarks for Guessing bonds between atoms in a static dataset of atoms](/images/090518_bondsguess.PNG)
 
 Apart from the increase in performance, another trick which only calculates distances from half the neighbours (as implemented in Cellgrid) is not implemented in Neighbour search routine. It is anticipated that performance of this method can be further increased by adopting this procedure. 
 
