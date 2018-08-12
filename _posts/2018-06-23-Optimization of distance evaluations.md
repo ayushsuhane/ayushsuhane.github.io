@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Optimization of distance evaluations
+excerpt: "Inclusion of capped function"
 ---
 
 In the last blog post, we discussed the advantages of gridsearch algorithm for three dimensional datasets, but it can be memory expensive based on the required cutoff radius. As KDTree and brute force are implemented and deeply rooted in MDAnalysis, an optimization of selection of algorithm i.e. choosing the algorithm based on certain empirical rules hidden from the user, would be helpful in fast distance evaluations. For this reason, the primary objective is to maintain a function which can handle different algorithms and switch between them based on the data provided to it.

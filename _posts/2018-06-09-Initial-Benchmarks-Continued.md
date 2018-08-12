@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Initial Benchmarks (Continued ..)
+excerpt: "Initial comparison with cell-list"
 ---
 
 This is the continuation of previous post, and includes more benchmarks for different use cases. Last post concluded few initial benchmarks comparing KDtree, Cellgrid and Brute force method for two use case (1)Contact searches (2) Near neighbour selection. An obvious conclusion that cell list and KDtree are better alternatives as compared to brute force for large number of particles was quantified in terms of execution time. However, brute force is a better option for very less number of particles. Other data structures were also compared for single point queries and it was concluded that neighbour search as implemented in FATSLiM and Octree are viable candidates for distance calculations.

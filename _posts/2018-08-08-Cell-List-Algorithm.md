@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Cell Lists and advantages
+excerpt: "Cell-list implementation in MDAnalysis"
 ---
 
 
