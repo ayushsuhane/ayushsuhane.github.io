@@ -26,7 +26,7 @@ As anticipated, bruteforce should be the fastest for this case, as the cost of c
 
 Cutoff= 4 units               |  DataSize = 100K             |  NoPBC Datasize = 100K
 :----------------------------:|:---------------------------:|:---------------------:
-![Multiple queries](/images/110718_mqnum.PNG) | ![10000 Multiple queries - Cutoff with PBC](/images/110718_mqcut.PNG)|![10000 muliple queries - Cutoff without PBC](/images/110718_mqcutnopbc.PNG)
+<img src="/images/110718_mqnum.PNG" width="200"> | <img src="/images/110718_mqcut.PNG" width="200"> |<img src="/images/110718_mqcutnopbc.PNG" width="200">
 
 As it can be seen, ``NSGrid`` is the fastest for multiple query searches where size is greater than 10 particles. Furthermore, one can contemplate from the trends that ``NSGrid`` slows down if the search radius is above a critical value, i.e. greater than 20-30% of the box size in this case. 
 
@@ -34,7 +34,7 @@ Another aspect is searching all the particles within a certain cutoff distance, 
 
 Cutoff= 4 units               |  DataSize = 100K             |  Datasize = 100K
 :----------------------------:|:---------------------------:|:---------------------:
-![Self Search - Number of particles with PBC](/images/110718_selfnum.PNG) | ![Self Search - Cutoff](/images/110718_selfcut.PNG) |![Self Search - Cutoff](/images/110718_selfcut10k.PNG)
+<img src="/images/110718_selfnum.PNG" width="200"> | <img src="/images/110718_selfcut.PNG" width="200"> |<img src="/images/110718_selfcut10k.PNG" width="200">
 
 As it can be seen here, PeriodicKDTree shows superior performance, if the desired cutoff distance is below a critical value (typically below 3% of the domain size) and ``nsgrid`` becomes superior for larger distances. 
 
